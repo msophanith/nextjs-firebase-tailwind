@@ -9,6 +9,11 @@ export function cn(...inputs: ClassValue[]) {
 export const isBrowser = () => typeof window !== 'undefined';
 
 export async function readImageLocation(file: File) {
+  // Only run on client side to avoid SSR issues
+  if (!isBrowser()) {
+    return null;
+  }
+
   try {
     const gps = await exifr.gps(file);
     if (!gps || !gps.latitude || !gps.longitude) return null;

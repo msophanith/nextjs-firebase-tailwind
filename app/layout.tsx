@@ -12,7 +12,6 @@ export const metadata: Metadata = {
   title: 'Police Alert Map',
   description: 'Discover and explore police alerts pinned across Cambodia.',
   keywords: 'police, alerts, map, nextjs, firebase',
-  viewport: 'width=device-width, initial-scale=1.0',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
