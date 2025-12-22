@@ -58,16 +58,12 @@ const UploadPage = () => {
       setStatus("GPS found in image ✅");
       setShowMap(false);
 
-      // Show toast and redirect when location is automatically detected
+      // Show toast when location is automatically detected
       toast({
         title: "Location Found!",
-        description: "GPS location detected from image. Redirecting to map...",
+        description: "GPS location detected from image.",
         variant: "default",
       });
-
-      setTimeout(() => {
-        router.push("/");
-      }, 2000);
     } else {
       setShowMap(true);
       setStatus("No GPS found — pick location manually.");
@@ -78,16 +74,12 @@ const UploadPage = () => {
     setLocation({ lat, lng });
     setStatus("Location selected manually ✅");
 
-    // Show toast and redirect when location is manually pinned
+    // Show toast when location is manually pinned
     toast({
       title: "Location Pinned!",
-      description: "Location pinned successfully. Redirecting to map...",
+      description: "Location pinned successfully.",
       variant: "default",
     });
-
-    setTimeout(() => {
-      router.push("/");
-    }, 2000);
   };
 
   const removeFile = () => {
