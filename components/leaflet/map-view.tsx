@@ -39,7 +39,7 @@ export default function MapView({ posts }: any) {
             [CAMBODIA_BOUNDS.maxLat, CAMBODIA_BOUNDS.maxLng],
           ]}
           maxBoundsViscosity={1.0}
-          style={{ height: 600, width: '100%' }}
+          style={{ height: 500, width: '100%' }}
           className='z-0'
         >
           <TileLayer

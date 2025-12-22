@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { useFirestore, useFirestoreCollectionData } from 'reactfire';
-import { collection, query, orderBy } from 'firebase/firestore';
+import { collection, query, orderBy, where } from 'firebase/firestore';
 import { Map, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -14,8 +14,13 @@ const MapView = dynamic(() => import('@/components/leaflet/map-view'), {
 export default function Home() {
   const firestore = useFirestore();
 
+  // Get start of today
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
   const postsQuery = query(
     collection(firestore, 'posts'),
+    where('createdAt', '>=', today),
     orderBy('createdAt', 'desc')
   );
 
