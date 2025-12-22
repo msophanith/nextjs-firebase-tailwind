@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { SignInForm } from "@/components/auth/sign-in-form";
-import { SignUpForm } from "@/components/auth/sign-up-form";
+import { SignInForm } from '@/components/auth/sign-in-form';
+import { SignUpForm } from '@/components/auth/sign-up-form';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useUser } from "reactfire";
+} from '@/components/ui/card';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useUser } from 'reactfire';
 
 export const AuthCard = () => {
   const [isShowingSignUp, setIsShowingSignUp] = useState<boolean>(false);
@@ -20,16 +20,16 @@ export const AuthCard = () => {
 
   useEffect(() => {
     if (user) {
-      router.push("/app");
+      router.push('/app');
     }
-  }, [user]);
+  }, [user, router]);
   return (
     <>
       <Card>
         <CardHeader>
-          <CardTitle>{isShowingSignUp ? "Sign Up" : "Sign In"}</CardTitle>
+          <CardTitle>{isShowingSignUp ? 'Sign Up' : 'Sign In'}</CardTitle>
           <CardDescription>
-            Give them a reason to {isShowingSignUp ? "sign up" : "sign in"}.
+            Give them a reason to {isShowingSignUp ? 'sign up' : 'sign in'}.
           </CardDescription>
         </CardHeader>
         <CardContent>
