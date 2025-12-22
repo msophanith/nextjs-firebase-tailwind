@@ -1,6 +1,5 @@
-'use client';
+"use client";
 
-import * as React from "react";
 import {
   Form,
   FormControl,
@@ -22,7 +21,7 @@ import { ModalForgotPassword } from "@/components/auth/modal-forgot-password";
 
 const formSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(8),
+  password: z.string().min(6),
 });
 
 interface SignInFormProps {
@@ -95,7 +94,7 @@ export const SignInForm: FC<SignInFormProps> = ({ onShowSignUp }) => {
       </Form>
       <p className="mt-4 text-sm">
         Forgot password?{" "}
-        <Button variant="link" onClick={() => setIsResetOpen(true)}>
+        <Button variant="default" onClick={() => setIsResetOpen(true)}>
           Reset
         </Button>
       </p>
