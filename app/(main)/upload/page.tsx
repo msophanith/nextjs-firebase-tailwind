@@ -10,7 +10,7 @@ const ManualLocationPicker = dynamic(
   () => import("@/components/leaflet/manual-location-picker"),
   { ssr: false }
 );
-import { readImageLocation } from "@/lib/utils";
+import { readImageLocation, compressImage } from "@/lib/utils";
 import { isInsideCambodia } from "@/lib/cambodia";
 import {
   Card,
@@ -118,35 +118,39 @@ const UploadPage = () => {
     if (!file || !location) return;
 
     setIsUploading(true);
-    setStatus("Converting image...");
+    setStatus("Compressing image...");
     try {
-      // Convert image to base64
-      const convertToBase64 = (file: File): Promise<string> => {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = () => resolve(reader.result as string);
-          reader.onerror = (error) => reject(error);
-        });
-      };
+      console.log(
+        "Starting upload process for file:",
+        file.name,
+        "size:",
+        file.size
+      );
 
-      const base64Image = await convertToBase64(file);
+      const compressedBase64 = await compressImage(file);
+      console.log(
+        "Image compressed. New size approx:",
+        Math.round(compressedBase64.length * 0.75),
+        "bytes"
+      );
 
       setStatus("Uploading to Firestore...");
+      console.log("Uploading to Firestore at location:", location);
 
       const expiresAt = new Date();
       expiresAt.setHours(expiresAt.getHours() + 24);
 
       await addDoc(collection(firestore, "posts"), {
-        imageData: base64Image,
+        imageData: compressedBase64,
         fileName: file.name,
         fileSize: file.size,
-        fileType: file.type,
+        fileType: "image/jpeg", // compressImage returns jpeg
         location,
         createdAt: serverTimestamp(),
         expiresAt: expiresAt,
       });
 
+      console.log("Upload successful!");
       setStatus("Upload complete 🎉");
 
       // Show success toast after upload completes
