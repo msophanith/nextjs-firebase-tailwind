@@ -1,24 +1,25 @@
-import { FishIcon } from "lucide-react";
+"use client";
+
+import { Heart } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export const Footer = () => {
+  const pathname = usePathname();
+
+  if (pathname === "/upload") return null;
+
   return (
-    <footer>
-      <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
-        <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-          <FishIcon />
-          <p className="text-center text-sm leading-loose md:text-left">
-            An{" "}
-            <a
-              href="https://github.com/enesien"
-              target="_blank"
-              className="font-medium underline underline-offset-4"
-            >
-              enesien
-            </a>{" "}
-            project.
-          </p>
-        </div>
-      </div>
-    </footer>
+    <div className="fixed bottom-6 left-0 right-0 flex justify-center items-center z-50 pointer-events-none">
+      <footer className="pointer-events-auto px-6 py-3 transition-all hover:scale-105">
+        <p className="text-sm font-medium text-muted-foreground flex items-center gap-2 whitespace-nowrap drop-shadow-sm">
+          Created with{" "}
+          <Heart
+            className="fill-red-500 text-red-500 animate-pulse"
+            size={14}
+          />{" "}
+          for the people who need it.
+        </p>
+      </footer>
+    </div>
   );
 };

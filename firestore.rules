@@ -1,0 +1,24 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow public read access to all posts
+    match /posts/{post} {
+      allow read: if true;
+      
+      // Allow creation of posts with basic validation
+      allow create: if request.resource.data.keys().hasAll(['imageData', 'location', 'createdAt'])
+                   && request.resource.data.imageData is string
+                   && request.resource.data.location is map
+                   && request.resource.data.createdAt == request.time;
+      
+      // Prevent unauthorized updates and deletions
+      allow update, delete: if false;
+    }
+    
+    // Default deny for all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

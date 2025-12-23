@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { FC, ReactNode, useMemo } from 'react';
+import { FC, ReactNode, useMemo } from "react";
 import {
   AnalyticsProvider,
   AuthProvider,
   FirebaseAppProvider,
   FirestoreProvider,
   useFirebaseApp,
-} from 'reactfire';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { isBrowser } from '@/lib/utils';
-import { getAnalytics } from 'firebase/analytics';
-import { FirebaseOptions } from 'firebase/app';
+} from "reactfire";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { isBrowser } from "@/lib/utils";
+import { getAnalytics } from "firebase/analytics";
+import { FirebaseOptions } from "firebase/app";
 
 const config: FirebaseOptions = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -23,6 +23,12 @@ const config: FirebaseOptions = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
+
+if (isBrowser() && !config.apiKey) {
+  console.warn(
+    "Firebase API key is missing. Please check your .env file and ensure NEXT_PUBLIC_FIREBASE_API_KEY is set."
+  );
+}
 
 const FirebaseProviderSDKs: FC<{ children: ReactNode }> = ({ children }) => {
   const firebase = useFirebaseApp();

@@ -1,34 +1,49 @@
-# Venefish 🐟
+# AlertMap 🗺️
 
-### Boilerplate for React TypeScript projects using Next.js, shadcn/ui, Tailwind and Firebase on Vercel!
+**AlertMap** is a community-driven, real-time alert platform designed to enhance situational awareness for citizens in Cambodia. Built on the high-performance **Venefish Stack**, it allows users to pin and discover alerts across the country in real-time.
 
-> Now using Next.js app router!
+## 🚀 Features
 
-This stack is 🔥 because projects can be built and deployed for free until you get to higher tiers within Vercel/Firebase which only happens once you get lots of DAUs.
+- **Interactive Map**: Real-time visualization of alerts using Leaflet.
+- **Smart Upload**: Automatically extracts GPS location from image EXIF data.
+- **Manual Pinning**: Easy-to-use manual location picker for photos without GPS data.
+- **Real-time Sync**: Powered by Firebase Firestore for instant updates across all users.
+- **Privacy-First**: No personal data collection; anonymous contributions.
 
-- **Ve**rcel for cloud and automated deployments
-- **Ne**xt.js for better React
-- **Fi**rebase for auth and database (Firestore)
-- **Sh**adcn and Tailwind for UI/styling
+## 🛠️ Tech Stack
 
-**Let me know if you have any questions! Godspeed.**
+- **Frontend**: [Next.js](https://nextjs.org/) (App Router)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) & [shadcn/ui](https://ui.shadcn.com/)
+- **Backend/Database**: [Firebase](https://firebase.google.com/) (Firestore)
+- **Mapping**: [Leaflet](https://leafletjs.com/)
+- **Deployment**: [Vercel](https://vercel.com/)
 
-## Setup
+## ⚙️ Setup
 
-1. Make sure your Firebase project has authentication added
-1. Get your public Firebase config and paste it into `components\firebase-providers.tsx`
-1. `npm i` and `npm run dev`
+1. **Firebase Configuration**:
 
-The following is only needed if you want to use `firebase/admin` (not part of this project by default)
+   - Ensure your Firebase project has Authentication and Firestore enabled.
+   - Update your public Firebase config in `components/firebase-providers.tsx`.
 
-1. Create a new file at the root level called `.env.local`
-1. Define a new variable there called `FIREBASE_ADMIN_SDK`
-1. Get your Firebase service account private key and stringify it then set the above variable to that string
-   > e.g.: `FIREBASE_ADMIN_SDK={"type":"service_account","project_id":"sleeptoken",...}`
+2. **Installation**:
 
-### Notes
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-- You can use `api/test.ts` to stringify your private key so you can use in in the environment
-- You need to define the same `FIREBASE_ADMIN_SDK` environment variable in Vercel
+3. **Development**:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-**Created by [⬡ Enesien Software](https://enesien.com)**
+## 📄 Project Proposal
+
+For a detailed breakdown of the project goals, design philosophy, and future roadmap, please refer to the [PROPOSAL.md](file:///Users/sophanith.mey/vibe-coding/venefish/PROPOSAL.md).
+
+---
+
+**Created with ❤️ for the Cambodia Community**

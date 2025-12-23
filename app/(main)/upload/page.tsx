@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useFirestore } from "reactfire";
 import { useRouter } from "next/navigation";
@@ -11,6 +11,7 @@ const ManualLocationPicker = dynamic(
   { ssr: false }
 );
 import { readImageLocation } from "@/lib/utils";
+import { isInsideCambodia } from "@/lib/cambodia";
 import {
   Card,
   CardContent,
@@ -33,10 +34,23 @@ import {
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
+import { Info } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 const UploadPage = () => {
+  const [hasMounted, setHasMounted] = useState(false);
   const firestore = useFirestore();
   const router = useRouter();
   const { toast } = useToast();
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -53,7 +67,7 @@ const UploadPage = () => {
     setStatus("Reading EXIF...");
     const gps = await readImageLocation(f);
 
-    if (gps) {
+    if (gps && isInsideCambodia(gps.lat, gps.lng)) {
       setLocation(gps);
       setStatus("GPS found in image ✅");
       setShowMap(false);
@@ -66,7 +80,17 @@ const UploadPage = () => {
       });
     } else {
       setShowMap(true);
-      setStatus("No GPS found — pick location manually.");
+      if (gps && !isInsideCambodia(gps.lat, gps.lng)) {
+        setStatus("Image location is outside Cambodia — pick manually.");
+        toast({
+          title: "Location Ignored",
+          description:
+            "The image location is outside Cambodia. Please pin it manually.",
+          variant: "destructive",
+        });
+      } else {
+        setStatus("No GPS found — pick location manually.");
+      }
     }
   };
 
@@ -110,6 +134,9 @@ const UploadPage = () => {
 
       setStatus("Uploading to Firestore...");
 
+      const expiresAt = new Date();
+      expiresAt.setHours(expiresAt.getHours() + 24);
+
       await addDoc(collection(firestore, "posts"), {
         imageData: base64Image,
         fileName: file.name,
@@ -117,6 +144,7 @@ const UploadPage = () => {
         fileType: file.type,
         location,
         createdAt: serverTimestamp(),
+        expiresAt: expiresAt,
       });
 
       setStatus("Upload complete 🎉");
@@ -154,6 +182,8 @@ const UploadPage = () => {
     }
   };
 
+  if (!hasMounted) return null;
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] p-4 bg-muted/30 gap-6">
       <div className="w-full max-w-2xl flex justify-start">
@@ -169,9 +199,24 @@ const UploadPage = () => {
       </div>
       <Card className="w-full max-w-2xl shadow-xl border-border/50 bg-card/80 backdrop-blur-sm">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold tracking-tight">
-            Upload Image
-          </CardTitle>
+          <div className="flex items-center justify-center gap-2">
+            <CardTitle className="text-3xl font-bold tracking-tight">
+              Upload Image
+            </CardTitle>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info
+                    className="text-muted-foreground cursor-help"
+                    size={20}
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Privacy: We do not collect or store personal user data.</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
           <CardDescription>
             Share your moments by pinning them to the map.
           </CardDescription>
