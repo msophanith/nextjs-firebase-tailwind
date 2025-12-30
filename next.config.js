@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
+  output: "standalone",
 
   // Enable experimental features
   experimental: {
@@ -11,17 +11,17 @@ const nextConfig = {
 
   // Configure compiler options for SWC
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === "production",
   },
 
   // Image optimization - updated to use remotePatterns instead of deprecated domains
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '',
-        pathname: '/**',
+        protocol: "http",
+        hostname: "localhost",
+        port: "",
+        pathname: "/**",
       },
     ],
     dangerouslyAllowSVG: true,

@@ -20,5 +20,8 @@ service cloud.firestore {
     match /{document=**} {
       allow read, write: if false;
     }
+    match /products/{productId} {
+      allow read, write: if true; // In production, you should restrict this to authenticated users
+    }
   }
 }

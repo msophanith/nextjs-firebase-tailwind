@@ -32,7 +32,6 @@ import {
   ChevronLeft,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 
 import { Info } from "lucide-react";
 import {
@@ -191,15 +190,14 @@ const UploadPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] p-4 bg-muted/30 gap-6">
       <div className="w-full max-w-2xl flex justify-start">
-        <Link href="/">
-          <Button
-            variant="ghost"
-            className="gap-2 text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ChevronLeft size={18} />
-            Back to Map
-          </Button>
-        </Link>
+        <Button
+          onClick={() => router.push("/")}
+          variant="ghost"
+          className="gap-2 text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <ChevronLeft size={18} />
+          Back to Map
+        </Button>
       </div>
       <Card className="w-full max-w-2xl shadow-xl border-border/50 bg-card/80 backdrop-blur-sm">
         <CardHeader className="text-center">
