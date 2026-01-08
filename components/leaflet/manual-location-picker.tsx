@@ -7,7 +7,7 @@ import {
   useMapEvents,
   useMap,
 } from "react-leaflet";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "leaflet/dist/leaflet.css";
 import {
   CAMBODIA_BOUNDS,
@@ -40,6 +40,16 @@ export default function ManualLocationPicker({ onSelect }: Props) {
     null
   );
   const [isLocating, setIsLocating] = useState(false);
+  const mapRef = useRef<L.Map | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+      }
+    };
+  }, []);
 
   function LocationMarker() {
     const map = useMap();
@@ -99,6 +109,7 @@ export default function ManualLocationPicker({ onSelect }: Props) {
   return (
     <div className="h-[300px] w-full relative group">
       <MapContainer
+        key="manual-location-picker"
         center={CAMBODIA_CENTER}
         zoom={7}
         minZoom={6}
@@ -110,6 +121,11 @@ export default function ManualLocationPicker({ onSelect }: Props) {
         maxBoundsViscosity={1.0}
         style={{ height: "100%", width: "100%" }}
         className="z-0"
+        ref={(map) => {
+          if (map) {
+            mapRef.current = map;
+          }
+        }}
       >
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"

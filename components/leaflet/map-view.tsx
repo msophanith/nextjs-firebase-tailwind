@@ -1,7 +1,7 @@
 "use client";
 
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "leaflet/dist/leaflet.css";
 import { CAMBODIA_BOUNDS, CAMBODIA_CENTER } from "@/lib/cambodia";
 import L from "leaflet";
@@ -36,9 +36,16 @@ const customIcon = createCustomIcon();
 export default function MapView({ posts }: any) {
   const [isLocating, setIsLocating] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const mapRef = useRef<L.Map | null>(null);
 
   useEffect(() => {
     setMounted(true);
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+      }
+    };
   }, []);
 
   if (!mounted) return null;
@@ -94,6 +101,7 @@ export default function MapView({ posts }: any) {
     <div className="w-full h-full max-w-5xl mx-auto p-4 md:p-8">
       <div className="relative h-full w-full overflow-hidden rounded-[3rem] border-8 border-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] bg-white">
         <MapContainer
+          key="main-map-view"
           center={CAMBODIA_CENTER}
           zoom={10}
           minZoom={6}
@@ -106,6 +114,11 @@ export default function MapView({ posts }: any) {
           style={{ height: 600, width: "100%" }}
           className="z-0"
           zoomControl={true}
+          ref={(map) => {
+            if (map) {
+              mapRef.current = map;
+            }
+          }}
         >
           <TileLayer
             url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
