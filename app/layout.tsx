@@ -1,12 +1,19 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Work_Sans } from "next/font/google";
 import "@/app/globals.css";
 import { cn } from "@/lib/utils";
 import { MyFirebaseProvider } from "@/components/firebase-providers";
 import { Toaster } from "@/components/ui/toaster";
+import { MobileDebugHelper } from "@/components/mobile-debug-helper";
 import { ReactNode } from "react";
 
 const font = Work_Sans({ subsets: ["latin"] });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export const metadata: Metadata = {
   title: "Vibe Coding - Intelligence",
@@ -29,6 +36,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <MyFirebaseProvider>
           {children}
           <Toaster />
+          <MobileDebugHelper />
         </MyFirebaseProvider>
       </body>
     </html>

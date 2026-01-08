@@ -26,7 +26,17 @@ export default function Home() {
     setHasMounted(true);
   }, []);
 
-  if (!hasMounted) return null;
+  // Show loading skeleton instead of blank screen
+  if (!hasMounted) {
+    return (
+      <div className="min-h-screen bg-[#0f172a] flex items-center justify-center">
+        <div className="animate-pulse space-y-4">
+          <div className="h-12 w-48 bg-white/10 rounded-lg mx-auto"></div>
+          <div className="h-6 w-64 bg-white/5 rounded-lg mx-auto"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-white selection:bg-blue-500/30 overflow-hidden relative">
