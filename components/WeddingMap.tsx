@@ -19,6 +19,9 @@ const icon = L.icon({
 
 export default function WeddingMap() {
   const [isMounted, setIsMounted] = useState(false);
+  const [instanceId] = useState(
+    () => `map-${Math.random().toString(36).substr(2, 9)}`
+  );
   const mapRef = useRef<L.Map | null>(null);
   const position: [number, number] = [11.5868, 104.8885];
 
@@ -26,7 +29,11 @@ export default function WeddingMap() {
     setIsMounted(true);
     return () => {
       if (mapRef.current) {
-        mapRef.current.remove();
+        try {
+          mapRef.current.remove();
+        } catch (e) {
+          console.error("Error removing map:", e);
+        }
         mapRef.current = null;
       }
     };
@@ -43,7 +50,7 @@ export default function WeddingMap() {
   return (
     <div className="h-full w-full relative z-0 isolate">
       <MapContainer
-        key="wedding-map-container"
+        key={instanceId}
         center={position}
         zoom={15}
         scrollWheelZoom={false}

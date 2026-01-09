@@ -2,26 +2,29 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow public read access to all posts
+    // 1. Contributions (Public for now)
+    match /contributions/{id} {
+      allow read, write: if true;
+    }
+
+    // 2. Products (Public for now)
+    match /products/{id} {
+      allow read, write: if true;
+    }
+
+    // 3. Posts (Public read, restricted create)
     match /posts/{post} {
       allow read: if true;
-      
-      // Allow creation of posts with basic validation
       allow create: if request.resource.data.keys().hasAll(['imageData', 'location', 'createdAt'])
                    && request.resource.data.imageData is string
                    && request.resource.data.location is map
                    && request.resource.data.createdAt == request.time;
-      
-      // Prevent unauthorized updates and deletions
       allow update, delete: if false;
     }
-    
-    // Default deny for all other collections
+
+    // 4. Default Deny
     match /{document=**} {
       allow read, write: if false;
-    }
-    match /products/{productId} {
-      allow read, write: if true; // In production, you should restrict this to authenticated users
     }
   }
 }

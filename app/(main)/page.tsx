@@ -9,6 +9,8 @@ import {
   ShieldCheck,
   Zap,
   ArrowRight,
+  DollarSign,
+  Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -156,6 +158,78 @@ export default function Home() {
 
                 <div className="mt-auto flex items-center gap-2 text-purple-400 font-bold text-sm uppercase tracking-widest">
                   View Map{" "}
+                  <ArrowRight
+                    size={16}
+                    className="group-hover:translate-x-2 transition-transform"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Wedding Invitation Action */}
+          <div
+            onClick={() => router.push("/wedding-invitation")}
+            className="group cursor-pointer"
+          >
+            <div className="relative h-full p-8 rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-xl transition-all duration-500 hover:bg-white/10 hover:border-pink-500/50 hover:-translate-y-2 group-active:scale-[0.98] overflow-hidden">
+              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                <Heart size={120} />
+              </div>
+
+              <div className="relative z-10 flex flex-col h-full gap-8">
+                <div className="w-14 h-14 rounded-2xl bg-pink-500/20 flex items-center justify-center text-pink-400 group-hover:scale-110 transition-transform duration-500">
+                  <Heart size={28} />
+                </div>
+
+                <div className="space-y-3">
+                  <h2 className="text-3xl font-bold tracking-tight text-white">
+                    Wedding Invitation
+                  </h2>
+                  <p className="text-pink-100/40 leading-relaxed">
+                    View the digital wedding invitation and celebrate our
+                    special day with us.
+                  </p>
+                </div>
+
+                <div className="mt-auto flex items-center gap-2 text-pink-400 font-bold text-sm uppercase tracking-widest">
+                  View Invitation{" "}
+                  <ArrowRight
+                    size={16}
+                    className="group-hover:translate-x-2 transition-transform"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contributions Action */}
+          <div
+            onClick={() => router.push("/contributions")}
+            className="group cursor-pointer"
+          >
+            <div className="relative h-full p-8 rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-xl transition-all duration-500 hover:bg-white/10 hover:border-green-500/50 hover:-translate-y-2 group-active:scale-[0.98] overflow-hidden">
+              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                <DollarSign size={120} />
+              </div>
+
+              <div className="relative z-10 flex flex-col h-full gap-8">
+                <div className="w-14 h-14 rounded-2xl bg-green-500/20 flex items-center justify-center text-green-400 group-hover:scale-110 transition-transform duration-500">
+                  <DollarSign size={28} />
+                </div>
+
+                <div className="space-y-3">
+                  <h2 className="text-3xl font-bold tracking-tight text-white">
+                    Audience Contributions
+                  </h2>
+                  <p className="text-green-100/40 leading-relaxed">
+                    Track and manage financial contributions from your audience
+                    with ease.
+                  </p>
+                </div>
+
+                <div className="mt-auto flex items-center gap-2 text-green-400 font-bold text-sm uppercase tracking-widest">
+                  Manage Contributions{" "}
                   <ArrowRight
                     size={16}
                     className="group-hover:translate-x-2 transition-transform"

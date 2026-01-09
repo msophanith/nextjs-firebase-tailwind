@@ -35,46 +35,65 @@ type Props = {
   onSelect: (lat: number, lng: number) => void;
 };
 
+function LocationMarker({
+  position,
+  setPosition,
+  onSelect,
+  isLocating,
+  setIsLocating,
+}: {
+  position: { lat: number; lng: number } | null;
+  setPosition: (pos: { lat: number; lng: number }) => void;
+  onSelect: (lat: number, lng: number) => void;
+  isLocating: boolean;
+  setIsLocating: (val: boolean) => void;
+}) {
+  const map = useMap();
+
+  useMapEvents({
+    click(e) {
+      if (!isInsideCambodia(e.latlng.lat, e.latlng.lng)) {
+        alert("Please select a location within Cambodia.");
+        return;
+      }
+      setPosition(e.latlng);
+      onSelect(e.latlng.lat, e.latlng.lng);
+    },
+  });
+
+  // Effect to pan map when position is set via geolocation
+  useEffect(() => {
+    if (position && isLocating) {
+      map.flyTo(position, 16);
+      setIsLocating(false);
+    }
+  }, [position, map, isLocating, setIsLocating]);
+
+  return position ? <Marker position={position} icon={customIcon} /> : null;
+}
+
 export default function ManualLocationPicker({ onSelect }: Props) {
   const [position, setPosition] = useState<{ lat: number; lng: number } | null>(
     null
   );
   const [isLocating, setIsLocating] = useState(false);
+  const [instanceId] = useState(
+    () => `map-${Math.random().toString(36).substr(2, 9)}`
+  );
   const mapRef = useRef<L.Map | null>(null);
 
   useEffect(() => {
     return () => {
       if (mapRef.current) {
-        mapRef.current.remove();
+        try {
+          mapRef.current.remove();
+        } catch (e) {
+          console.error("Error removing map:", e);
+        }
         mapRef.current = null;
       }
     };
   }, []);
-
-  function LocationMarker() {
-    const map = useMap();
-
-    useMapEvents({
-      click(e) {
-        if (!isInsideCambodia(e.latlng.lat, e.latlng.lng)) {
-          alert("Please select a location within Cambodia.");
-          return;
-        }
-        setPosition(e.latlng);
-        onSelect(e.latlng.lat, e.latlng.lng);
-      },
-    });
-
-    // Effect to pan map when position is set via geolocation
-    useEffect(() => {
-      if (position && isLocating) {
-        map.flyTo(position, 16);
-        setIsLocating(false);
-      }
-    }, [position, map]);
-
-    return position ? <Marker position={position} icon={customIcon} /> : null;
-  }
 
   const handleGetCurrentLocation = () => {
     if (!navigator.geolocation) {
@@ -109,7 +128,7 @@ export default function ManualLocationPicker({ onSelect }: Props) {
   return (
     <div className="h-[300px] w-full relative group">
       <MapContainer
-        key="manual-location-picker"
+        key={instanceId}
         center={CAMBODIA_CENTER}
         zoom={7}
         minZoom={6}
@@ -131,7 +150,13 @@ export default function ManualLocationPicker({ onSelect }: Props) {
           url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
         />
-        <LocationMarker />
+        <LocationMarker
+          position={position}
+          setPosition={setPosition}
+          onSelect={onSelect}
+          isLocating={isLocating}
+          setIsLocating={setIsLocating}
+        />
       </MapContainer>
 
       {/* Geolocation Button Overlay */}

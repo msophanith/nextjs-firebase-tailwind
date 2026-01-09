@@ -33,16 +33,76 @@ const createCustomIcon = (color: string = "#3b82f6") =>
 
 const customIcon = createCustomIcon();
 
+const FindMyLocationButton = ({
+  setIsLocating,
+  isLocating,
+}: {
+  setIsLocating: (val: boolean) => void;
+  isLocating: boolean;
+}) => {
+  const map = useMap();
+
+  const handleFindMyLocation = () => {
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser");
+      return;
+    }
+
+    setIsLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+        map.flyTo([latitude, longitude], 16, {
+          duration: 2,
+        });
+        setIsLocating(false);
+      },
+      (error) => {
+        console.error("Geolocation error:", error);
+        setIsLocating(false);
+        alert("Unable to retrieve your location");
+      },
+      { enableHighAccuracy: true }
+    );
+  };
+
+  return (
+    <div className="absolute bottom-6 right-6 z-[1000]">
+      <Button
+        type="button"
+        variant="secondary"
+        size="lg"
+        className="h-12 w-12 rounded-2xl shadow-xl bg-white hover:bg-gray-50 text-blue-600 border border-blue-100 transition-all active:scale-95 flex items-center justify-center p-0"
+        onClick={handleFindMyLocation}
+        disabled={isLocating}
+      >
+        {isLocating ? (
+          <Loader2 size={20} className="animate-spin" />
+        ) : (
+          <Navigation size={20} fill="currentColor" />
+        )}
+      </Button>
+    </div>
+  );
+};
+
 export default function MapView({ posts }: any) {
   const [isLocating, setIsLocating] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [instanceId] = useState(
+    () => `map-${Math.random().toString(36).substr(2, 9)}`
+  );
   const mapRef = useRef<L.Map | null>(null);
 
   useEffect(() => {
     setMounted(true);
     return () => {
       if (mapRef.current) {
-        mapRef.current.remove();
+        try {
+          mapRef.current.remove();
+        } catch (e) {
+          console.error("Error removing map:", e);
+        }
         mapRef.current = null;
       }
     };
@@ -50,58 +110,11 @@ export default function MapView({ posts }: any) {
 
   if (!mounted) return null;
 
-  const FindMyLocationButton = () => {
-    const map = useMap();
-
-    const handleFindMyLocation = () => {
-      if (!navigator.geolocation) {
-        alert("Geolocation is not supported by your browser");
-        return;
-      }
-
-      setIsLocating(true);
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const { latitude, longitude } = pos.coords;
-          map.flyTo([latitude, longitude], 16, {
-            duration: 2,
-          });
-          setIsLocating(false);
-        },
-        (error) => {
-          console.error("Geolocation error:", error);
-          setIsLocating(false);
-          alert("Unable to retrieve your location");
-        },
-        { enableHighAccuracy: true }
-      );
-    };
-
-    return (
-      <div className="absolute bottom-6 right-6 z-[1000]">
-        <Button
-          type="button"
-          variant="secondary"
-          size="lg"
-          className="h-12 w-12 rounded-2xl shadow-xl bg-white hover:bg-gray-50 text-blue-600 border border-blue-100 transition-all active:scale-95 flex items-center justify-center p-0"
-          onClick={handleFindMyLocation}
-          disabled={isLocating}
-        >
-          {isLocating ? (
-            <Loader2 size={20} className="animate-spin" />
-          ) : (
-            <Navigation size={20} fill="currentColor" />
-          )}
-        </Button>
-      </div>
-    );
-  };
-
   return (
     <div className="w-full h-full max-w-5xl mx-auto p-4 md:p-8">
       <div className="relative h-full w-full overflow-hidden rounded-[3rem] border-8 border-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] bg-white">
         <MapContainer
-          key="main-map-view"
+          key={instanceId}
           center={CAMBODIA_CENTER}
           zoom={10}
           minZoom={6}
@@ -125,7 +138,10 @@ export default function MapView({ posts }: any) {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
           />
 
-          <FindMyLocationButton />
+          <FindMyLocationButton
+            setIsLocating={setIsLocating}
+            isLocating={isLocating}
+          />
 
           {posts?.map(
             (post: any) =>
