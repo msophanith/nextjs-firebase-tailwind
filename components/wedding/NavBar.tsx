@@ -10,7 +10,10 @@ export default function NavBar({ scrolled }: NavBarProps) {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <nav
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500 flex justify-between items-center px-6 py-4",
         scrolled ? "bg-white/80 backdrop-blur-md shadow-sm" : "bg-transparent"
@@ -78,10 +81,10 @@ export default function NavBar({ scrolled }: NavBarProps) {
                 : "text-white/40 hover:text-white/70"
             )}
           >
-            KH
+            ខ្មែរ
           </button>
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 }

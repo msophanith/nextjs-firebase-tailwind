@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Work_Sans } from "next/font/google";
+import { Work_Sans, Playfair_Display } from "next/font/google";
 import "@/app/globals.css";
 import { cn } from "@/lib/utils";
 import { MyFirebaseProvider } from "@/components/firebase-providers";
@@ -8,6 +8,10 @@ import { MobileDebugHelper } from "@/components/mobile-debug-helper";
 import { ReactNode } from "react";
 
 const font = Work_Sans({ subsets: ["latin"] });
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -32,7 +36,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={cn(font.className)}>
+      <body className={cn(font.className, playfair.variable)}>
         <MyFirebaseProvider>
           {children}
           <Toaster />
