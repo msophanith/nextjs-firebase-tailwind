@@ -35,7 +35,7 @@ export function WhyILoveYou({ reasons }: WhyILoveYouProps) {
   return (
     <section
       ref={ref}
-      className="min-h-screen py-20 px-6 bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 relative overflow-hidden"
+      className="min-h-screen py-20 px-6 bg-gradient-to-br from-[#1e1b4b] via-[#312e81] to-[#1e1b4b] relative overflow-hidden"
     >
       {/* Background hearts */}
       <div className="absolute inset-0 opacity-5">
@@ -76,10 +76,10 @@ export function WhyILoveYou({ reasons }: WhyILoveYouProps) {
           >
             💕
           </motion.div>
-          <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 bg-clip-text text-transparent mb-4">
+          <h2 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
             Why I Love You
           </h2>
-          <p className="text-xl text-gray-600">Let me count the ways... 💝</p>
+          <p className="text-xl text-white/80">Let me count the ways... 💝</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -91,7 +91,7 @@ export function WhyILoveYou({ reasons }: WhyILoveYouProps) {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group"
             >
-              <div className="relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+              <div className="relative bg-white/10 backdrop-blur-xl rounded-2xl p-6 shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20">
                 {/* Number badge */}
                 <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
                   <span className="text-white font-bold text-lg">
@@ -105,7 +105,7 @@ export function WhyILoveYou({ reasons }: WhyILoveYouProps) {
                 </div>
 
                 {/* Reason text */}
-                <p className="text-gray-700 text-lg text-center leading-relaxed">
+                <p className="text-white text-lg text-center leading-relaxed font-light">
                   {item.reason}
                 </p>
 

@@ -51,7 +51,7 @@ export function LoveLetterSection({
   return (
     <section
       ref={ref}
-      className="min-h-screen py-20 px-6 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 relative overflow-hidden"
+      className="min-h-screen py-20 px-6 bg-gradient-to-br from-[#2a1b1b] via-[#4d1616] to-[#2a1b1b] relative overflow-hidden"
     >
       {/* Paper texture overlay */}
       <div className="absolute inset-0 opacity-30 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZDRhZjM3IiBzdHJva2Utd2lkdGg9IjAuNSIgb3BhY2l0eT0iMC4xIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')]" />
@@ -63,7 +63,7 @@ export function LoveLetterSection({
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-amber-600 via-rose-600 to-pink-600 bg-clip-text text-transparent mb-4">
+          <h2 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
             {title}
           </h2>
         </motion.div>

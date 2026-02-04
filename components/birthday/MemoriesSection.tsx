@@ -16,12 +16,12 @@ export function MemoriesSection({ memories }: MemoriesSectionProps) {
   return (
     <section
       ref={ref}
-      className="min-h-screen py-20 px-6 bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 relative overflow-hidden"
+      className="min-h-screen py-20 px-6 bg-gradient-to-br from-[#1a0b1a] via-[#4d0b2d] to-[#1a0b1a] relative overflow-hidden"
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-pink-400 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400 rounded-full blur-3xl" />
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-pink-500 rounded-full blur-[120px]" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-600 rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
@@ -31,10 +31,10 @@ export function MemoriesSection({ memories }: MemoriesSectionProps) {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-rose-600 bg-clip-text text-transparent mb-4">
+          <h2 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
             Our Beautiful Moments
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-white/70">
             Every memory with you is a treasure 💝
           </p>
         </motion.div>
@@ -50,7 +50,7 @@ export function MemoriesSection({ memories }: MemoriesSectionProps) {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="flex-shrink-0 w-80 md:w-96 snap-center group"
               >
-                <div className="relative bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                <div className="relative bg-white/10 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl hover:shadow-pink-500/20 transition-all duration-500 transform hover:-translate-y-2 border border-white/20">
                   {/* Image container */}
                   <div className="relative h-80 overflow-hidden bg-gradient-to-br from-pink-100 to-purple-100">
                     {/* Actual image - will show placeholder text if image doesn't load */}
@@ -70,13 +70,7 @@ export function MemoriesSection({ memories }: MemoriesSectionProps) {
                     {/* Fallback placeholder (shown if image fails) */}
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                       <div className="text-center p-8">
-                        <div className="text-6xl mb-4">📸</div>
-                        <p className="text-gray-500 text-sm">
-                          Add your photo here
-                        </p>
-                        <p className="text-gray-400 text-xs mt-2">
-                          {memory.image}
-                        </p>
+                        <div className="text-6xl mb-4 opacity-50">📸</div>
                       </div>
                     </div>
 
@@ -112,11 +106,11 @@ export function MemoriesSection({ memories }: MemoriesSectionProps) {
                   {/* Content */}
                   <div className="p-6">
                     {memory.date && (
-                      <div className="inline-block px-3 py-1 bg-gradient-to-r from-pink-100 to-purple-100 rounded-full text-sm font-medium text-purple-700 mb-3">
+                      <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-sm font-medium text-white mb-3 border border-white/30">
                         {memory.date}
                       </div>
                     )}
-                    <p className="text-gray-700 text-lg leading-relaxed">
+                    <p className="text-white text-lg leading-relaxed drop-shadow-sm font-light">
                       {memory.caption}
                     </p>
                   </div>
@@ -136,7 +130,7 @@ export function MemoriesSection({ memories }: MemoriesSectionProps) {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 1 }}
-          className="text-center mt-8 text-gray-500"
+          className="text-center mt-8 text-white/50"
         >
           <p className="text-sm">← Scroll to see more memories →</p>
         </motion.div>
