@@ -26,37 +26,37 @@ export const valentineData = {
   memories: [
     {
       id: 1,
-      image: "/assets/valentine/1.jpeg",
+      image: "/assets/valentine/pic1.jpeg",
       caption: "From the moment I met you, I knew you were special ✨",
       date: "First Glance",
     },
     {
       id: 2,
-      image: "/assets/valentine/2.jpeg",
+      image: "/assets/valentine/pic2.jpeg",
       caption: "Every day with you feels like Valentine's Day 💝",
       date: "Every Day",
     },
     {
       id: 3,
-      image: "/assets/valentine/3.jpeg",
+      image: "/assets/valentine/pic3.jpeg",
       caption: "You make my heart skip a beat 💓",
       date: "Heartbeat",
     },
     {
       id: 4,
-      image: "/assets/valentine/4.jpeg",
+      image: "/assets/valentine/pic5.jpeg",
       caption: "Together is my favorite place to be 🏡",
       date: "Home",
     },
     {
       id: 5,
-      image: "/assets/valentine/5.jpeg",
+      image: "/assets/valentine/pic4.jpeg",
       caption: "You're the reason I believe in love 💫",
       date: "Believe",
     },
     {
       id: 6,
-      image: "/assets/valentine/6.jpeg",
+      image: "/assets/valentine/pic6.jpeg",
       caption: "Forever grateful for your love 🙏",
       date: "Grateful",
     },

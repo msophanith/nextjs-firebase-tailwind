@@ -21,7 +21,7 @@ export default function ValentinePage() {
   };
 
   const content = (
-    <div className="relative">
+    <div className="relative cursor-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22 style=%22font-size: 24px%22><text y=%2224%22>❤️</text></svg>'),_pointer]">
       <ScrollProgress />
       <RosePetals />
 
