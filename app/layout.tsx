@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Work_Sans, Playfair_Display } from "next/font/google";
+import { Work_Sans, Playfair_Display, Caveat } from "next/font/google";
 import "@/app/globals.css";
 import { cn } from "@/lib/utils";
 import { MyFirebaseProvider } from "@/components/firebase-providers";
@@ -11,6 +11,10 @@ const font = Work_Sans({ subsets: ["latin"] });
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
+});
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-caveat",
 });
 
 export const viewport: Viewport = {
@@ -36,7 +40,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={cn(font.className, playfair.variable)}>
+      <body className={cn(font.className, playfair.variable, caveat.variable)}>
         <MyFirebaseProvider>
           {children}
           <Toaster />

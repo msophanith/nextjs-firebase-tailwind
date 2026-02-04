@@ -53,6 +53,7 @@ module.exports = {
       },
       fontFamily: {
         playfair: ["var(--font-playfair)", "serif"],
+        handwriting: ["var(--font-caveat)", "cursive"],
       },
       borderRadius: {
         lg: "var(--radius)",
