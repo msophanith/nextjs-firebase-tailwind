@@ -26,7 +26,7 @@ const config: FirebaseOptions = {
 
 if (isBrowser() && !config.apiKey) {
   console.warn(
-    "Firebase API key is missing. Please check your .env file and ensure NEXT_PUBLIC_FIREBASE_API_KEY is set."
+    "Firebase API key is missing. Please check your .env file and ensure NEXT_PUBLIC_FIREBASE_API_KEY is set.",
   );
 }
 
@@ -58,11 +58,17 @@ const FirebaseProviderSDKs: FC<{ children: ReactNode }> = ({ children }) => {
 export const MyFirebaseProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
+  // If Firebase API key is missing, render children without Firebase providers
+  if (!config.apiKey) {
+    console.warn(
+      "Firebase is not configured. Running without Firebase services.",
+    );
+    return <>{children}</>;
+  }
+
   return (
-    <>
-      <FirebaseAppProvider firebaseConfig={config}>
-        <FirebaseProviderSDKs>{children}</FirebaseProviderSDKs>
-      </FirebaseAppProvider>
-    </>
+    <FirebaseAppProvider firebaseConfig={config}>
+      <FirebaseProviderSDKs>{children}</FirebaseProviderSDKs>
+    </FirebaseAppProvider>
   );
 };
