@@ -50,3 +50,23 @@ export const getHealthRecommendation = (aqi: number, t: any) => {
   if (aqi <= 300) return t.healthRecommendations.veryUnhealthy;
   return t.healthRecommendations.hazardous;
 };
+
+export const getTimeAgo = (timestamp: string, language: "km" | "en") => {
+  const now = new Date();
+  const past = new Date(timestamp);
+  const diffInMinutes = Math.floor((now.getTime() - past.getTime()) / 60000);
+
+  if (language === "km") {
+    if (diffInMinutes < 1) return "ទើបតែអម្បាញ់មិញ";
+    if (diffInMinutes < 60) return `${diffInMinutes} នាទីមុន`;
+    const hours = Math.floor(diffInMinutes / 60);
+    if (hours < 24) return `${hours} ម៉ោងមុន`;
+    return past.toLocaleDateString("km-KH");
+  } else {
+    if (diffInMinutes < 1) return "Just now";
+    if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+    const hours = Math.floor(diffInMinutes / 60);
+    if (hours < 24) return `${hours}h ago`;
+    return past.toLocaleDateString("en-US");
+  }
+};

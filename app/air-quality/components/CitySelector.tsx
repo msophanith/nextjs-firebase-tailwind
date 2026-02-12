@@ -11,13 +11,19 @@ import {
 
 interface CitySelectorProps {
   readonly city: string;
+  readonly cityName?: string;
   readonly onCityChange: (city: string) => void;
   readonly t: any;
 }
 
-export function CitySelector({ city, onCityChange, t }: CitySelectorProps) {
+export function CitySelector({
+  city,
+  cityName,
+  onCityChange,
+  t,
+}: CitySelectorProps) {
   return (
-    <div className="max-w-md mx-auto mb-10">
+    <div className="max-w-2xl mx-auto mb-10">
       <Select value={city} onValueChange={onCityChange}>
         <SelectTrigger className="w-full h-16 pl-12 pr-6 rounded-full border-2 border-blue-100 bg-white/70 backdrop-blur-md shadow-xl hover:shadow-2xl hover:border-blue-400 transition-all duration-500 group">
           <div className="absolute left-4 top-1/2 -translate-y-1/2">
@@ -25,7 +31,7 @@ export function CitySelector({ city, onCityChange, t }: CitySelectorProps) {
           </div>
           <SelectValue placeholder="Select a city">
             <span className="text-lg font-medium text-gray-700">
-              {t.cities[city as keyof typeof t.cities]}
+              {t.cities[city as keyof typeof t.cities] || cityName || city}
             </span>
           </SelectValue>
         </SelectTrigger>

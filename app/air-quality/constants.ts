@@ -1,4 +1,4 @@
-import { Language } from "./types";
+// Language import removed as it was unused
 
 export const translations = {
   km: {
@@ -78,6 +78,12 @@ export const translations = {
       humidity: "សំណើម",
       wind: "ល្បឿនខ្យល់",
     },
+    search: {
+      placeholder: "ស្វែងរកទីក្រុង ឬទីតាំង...",
+      noResults: "រកមិនឃើញលទ្ធផល",
+      searching: "កំពុងស្វែងរក...",
+      popularCities: "ទីក្រុងពេញនិយម",
+    },
   },
   en: {
     title: "Air Quality Monitor",
@@ -156,6 +162,12 @@ export const translations = {
       temp: "Temperature",
       humidity: "Humidity",
       wind: "Wind Speed",
+    },
+    search: {
+      placeholder: "Search city or station...",
+      noResults: "No results found",
+      searching: "Searching...",
+      popularCities: "Popular Cities",
     },
   },
 };

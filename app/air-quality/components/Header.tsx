@@ -2,6 +2,7 @@
 
 import { MapIcon, Languages } from "lucide-react";
 import { Language } from "../types";
+import { CitySearch } from "./CitySearch";
 
 interface HeaderProps {
   readonly t: any;
@@ -10,6 +11,8 @@ interface HeaderProps {
   readonly onLanguageToggle: () => void;
   readonly onMapToggle: () => void;
   readonly mapToggleLabel: string;
+  readonly onCitySelect: (city: string) => void;
+  readonly currentCityId?: string;
 }
 
 export function Header({
@@ -19,6 +22,8 @@ export function Header({
   onLanguageToggle,
   onMapToggle,
   mapToggleLabel,
+  onCitySelect,
+  currentCityId,
 }: HeaderProps) {
   return (
     <>
@@ -58,6 +63,14 @@ export function Header({
             {t.subtitle}
           </p>
           <div className="h-1 w-24 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mt-4 opacity-30"></div>
+        </div>
+
+        <div className="mt-12 max-w-3xl mx-auto relative z-[9999]">
+          <CitySearch
+            onCitySelect={onCitySelect}
+            t={t}
+            currentCityId={currentCityId}
+          />
         </div>
       </div>
     </>

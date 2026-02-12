@@ -21,6 +21,8 @@ export interface AirQualityData {
     day: string;
     avg: number;
   }[];
+  geo?: [number, number];
+  stationUrl?: string;
 }
 
 export type Language = "km" | "en";
